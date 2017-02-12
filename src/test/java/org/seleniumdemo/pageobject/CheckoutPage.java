@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Objects;
 
@@ -31,10 +32,11 @@ public class CheckoutPage {
         actions.perform();
 
         driver.findElement(REMOVE_ELEMENT_ICON).click();
-        Thread.sleep(500);
     }
 
     public boolean isShoppingCartEmpty() {
+        new WebDriverWait(driver, 1)
+            .until((WebDriver driver1) -> driver1.findElement(SHOPPING_CART_EMPTY_LABEL).isDisplayed());
         return driver.findElement(SHOPPING_CART_EMPTY_LABEL).isDisplayed();
     }
 }

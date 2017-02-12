@@ -1,38 +1,16 @@
 package org.seleniumdemo.test;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.seleniumdemo.common.BaseTest;
 import org.seleniumdemo.pageobject.*;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-public class ShoppingTest {
-    private WebDriver driver;
-
-    @Before
-    public void setUp() throws Exception {
-        String browserName = System.getProperty("browserName");
-
-        if (browserName != null && browserName.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-            driver = new ChromeDriver();
-
-        } else {
-            driver = new FirefoxDriver();
-        }
-
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
+public class ShoppingTest extends BaseTest {
 
     @Test
     public void addShortsToCartValidatePriceAndCleanCart() throws Exception {
-        HomePage homePage = new HomePage(this.driver);
+        HomePage homePage = new HomePage(driver);
         CategoryPage categoryPage = new CategoryPage(driver);
         SubCategoryPage subCategoryPage = new SubCategoryPage(driver);
         ProductDetailPage productDetailPage = new ProductDetailPage(driver);
@@ -53,10 +31,5 @@ public class ShoppingTest {
         checkoutPage.cleanShoppingCart();
         boolean isCartEmpty = checkoutPage.isShoppingCartEmpty();
         assertTrue(isCartEmpty);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
     }
 }
