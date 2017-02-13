@@ -1,26 +1,30 @@
 package org.seleniumdemo.pageobject;
 
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.Objects;
 
 public class HomePage {
-    private final static By WOMEN_MENU = By.linkText("Women");
-    private final static By SEARCH_FIELD = By.name("search_query");
+    @FindBy(linkText = "Women")
+    private WebElement womenMenu;
+
+    @FindBy(name = "search_query")
+    private WebElement searchField;
 
     private final WebDriver driver;
 
     public HomePage(final WebDriver driver) {
         Objects.requireNonNull(driver);
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     public void goToWomenSubcategory() {
-        driver.findElement(WOMEN_MENU).click();
+        womenMenu.click();
     }
 
     public void loadHomePage() {
@@ -29,7 +33,6 @@ public class HomePage {
 
     public void search(String searchText) {
         Objects.requireNonNull(searchText);
-        WebElement searchField = driver.findElement(SEARCH_FIELD);
         searchField.sendKeys(searchText);
         searchField.sendKeys(Keys.ENTER);
     }

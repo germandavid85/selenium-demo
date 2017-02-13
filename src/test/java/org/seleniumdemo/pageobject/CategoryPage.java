@@ -1,21 +1,22 @@
 package org.seleniumdemo.pageobject;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.Objects;
 
 public class CategoryPage {
-    private static final By TOP_CATEGORY = By.linkText("Tops");
-
-    private final WebDriver driver;
+    @FindBy(linkText = "Tops")
+    private WebElement topCategory;
 
     public CategoryPage(final WebDriver driver) {
         Objects.requireNonNull(driver);
-        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public void goToTopSubCategory() {
-        driver.findElement(TOP_CATEGORY).click();
+        topCategory.click();
     }
 }
