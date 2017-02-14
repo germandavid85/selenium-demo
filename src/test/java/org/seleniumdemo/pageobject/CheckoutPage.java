@@ -48,6 +48,6 @@ public class CheckoutPage {
     public boolean isShoppingCartEmpty() {
         new WebDriverWait(driver, 1)
             .until((WebDriver driver1) -> driver1.findElement(SHOPPING_CART_EMPTY_LABEL).isDisplayed());
-        return shoppingCartEmptyLabel.isDisplayed();
+        return driver.findElement(SHOPPING_CART_EMPTY_LABEL).isDisplayed();
     }
 }
