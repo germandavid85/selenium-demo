@@ -48,7 +48,7 @@ public class BaseTest implements SauceOnDemandSessionIdProvider {
         }
 
         this.sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Wait.EXPLICIT_WAIT, TimeUnit.SECONDS);
     }
 
     @After
