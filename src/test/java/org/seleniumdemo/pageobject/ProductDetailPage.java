@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.seleniumdemo.common.Wait;
 
 import java.util.Objects;
 
@@ -26,8 +27,11 @@ public class ProductDetailPage {
     public void addProductToCart() {
         submitButton.click();
 
-        new WebDriverWait(driver, 1)
-            .until((WebDriver driver1) -> driver1.findElement(CHECKOUT_BUTTON).isDisplayed());
+        new WebDriverWait(driver, Wait.SHORT_WAIT)
+            .until((WebDriver driver1) -> {
+                WebElement checkoutButton = driver1.findElement(CHECKOUT_BUTTON);
+                return checkoutButton != null && checkoutButton.isDisplayed();
+            });
 
         driver.findElement(CHECKOUT_BUTTON).click();
     }
