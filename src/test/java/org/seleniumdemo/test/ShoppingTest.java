@@ -1,12 +1,12 @@
 package org.seleniumdemo.test;
 
 import org.junit.Test;
-import org.seleniumdemo.common.BaseTest;
+import org.seleniumdemo.common.Base;
 import org.seleniumdemo.pageobject.*;
 
 import static org.junit.Assert.*;
 
-public class ShoppingTest extends BaseTest {
+public class ShoppingTest extends Base {
 
     @Test
     public void addShortsToCartValidatePriceAndCleanCart() throws Exception {

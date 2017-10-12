@@ -13,7 +13,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest implements SauceOnDemandSessionIdProvider {
+public class Base implements SauceOnDemandSessionIdProvider {
     private final static String USER_NAME = Utils.readPropertyOrEnv("SAUCE_USERNAME", "");
     private final static String ACCESS_KEY = Utils.readPropertyOrEnv("SAUCE_ACCESS_KEY", "");
     private static final String SELENIUM_URI = "@ondemand.saucelabs.com:443/wd/hub";
@@ -32,20 +32,8 @@ public class BaseTest implements SauceOnDemandSessionIdProvider {
     @Before
     public void setUp() throws Exception {
         String browserName = System.getProperty("browserName");
-        boolean runOnRemote = Boolean.valueOf(System.getProperty("runOnRemote"));
-        if (runOnRemote) {
-            DesiredCapabilities capabilities = BrowserFactory.getRemoteCapabilities(browserName);
-            capabilities.setCapability(
-                "name",
-                String.format("Meetup demo (%d) - %s", SAUCELABS_ID, name.getMethodName()));
 
-            this.driver = new RemoteWebDriver(new URL(
-                "https://" + USER_NAME + ":" + ACCESS_KEY + SELENIUM_URI),
-                capabilities);
-
-        } else {
-            driver = BrowserFactory.getBrowser(browserName);
-        }
+        driver = BrowserFactory.getBrowser(browserName);
 
         this.sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
         driver.manage().timeouts().implicitlyWait(Wait.EXPLICIT_WAIT, TimeUnit.SECONDS);
